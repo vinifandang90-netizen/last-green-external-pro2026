@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#090909">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Last Green PRO">
+<link rel="manifest" href="manifest.webmanifest">
+<title>LAST GREEN EXTERNAL PRO</title>
+<style>
+:root{--bg:#080808;--panel:#151515;--red:#ef3038;--red2:#9e111b;--muted:#a7a7a7;--line:#333}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#451015 0,#101010 36%,#070707 75%);color:#f5f5f5;font:15px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;padding:env(safe-area-inset-top) 14px calc(22px + env(safe-area-inset-bottom))}
+header{padding:22px 4px 15px;text-align:center}header .eyebrow{color:#ff6268;font-size:11px;letter-spacing:3px;font-weight:800}h1{font-size:27px;line-height:1;margin:8px 0 6px;font-weight:950;letter-spacing:1px}h1 span{color:var(--red)}.sub{color:var(--muted);font-size:12px}
+.status{display:flex;justify-content:space-between;align-items:center;border:1px solid #4b2023;background:#170d0e;border-radius:12px;padding:11px 13px;margin:8px 0 16px;font-size:12px;color:#ddd}.dot{display:inline-block;width:7px;height:7px;background:#55d887;border-radius:50%;margin-right:7px;box-shadow:0 0 9px #55d887}
+nav{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}.tab{border:1px solid var(--line);background:#121212;color:#aaa;border-radius:10px;padding:11px 5px;font-weight:800;font-size:12px}.tab.active{border-color:var(--red);background:#321014;color:white;box-shadow:inset 0 0 0 1px #6d1a20}
+.card{background:linear-gradient(145deg,#191919,#101010);border:1px solid #333;border-radius:15px;padding:15px;margin:10px 0;box-shadow:0 8px 22px #0005}.card h2{font-size:15px;margin:0 0 12px;letter-spacing:.5px}.hint{color:var(--muted);font-size:12px;line-height:1.45;margin-top:-5px;margin-bottom:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:flex;flex-direction:column;gap:6px;margin:9px 0}.field label{font-size:11px;color:#bbb;font-weight:700;text-transform:uppercase;letter-spacing:.6px}input,select,textarea{width:100%;background:#090909;border:1px solid #414141;border-radius:9px;color:#fff;padding:12px;font:inherit;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--red)}button.primary{width:100%;background:linear-gradient(100deg,#a90f19,#f13b42);border:0;border-radius:10px;color:white;font-weight:900;padding:13px;margin-top:8px;font-size:13px;letter-spacing:.5px}button.secondary{background:#242424;border:1px solid #444;border-radius:9px;color:#eee;padding:10px 12px;font-weight:700}.result{background:#260e11;border:1px solid #71232a;border-radius:10px;padding:12px;margin-top:12px;display:none}.result strong{color:#ff686e;font-size:21px;display:block;margin-top:3px}.statrow{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.stat{background:#0d0d0d;border:1px solid #303030;border-radius:10px;padding:12px}.stat small{color:#999;font-size:10px;text-transform:uppercase}.stat b{display:block;font-size:20px;margin-top:5px}.hidden{display:none}.wave{display:flex;gap:8px;align-items:center;margin:9px 0}.wave input{flex:1}.wave button{padding:9px;border-radius:8px;border:1px solid #632027;background:#281014;color:#ff858a}.mapgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:12px}.cell{aspect-ratio:1;border:1px solid #444;border-radius:7px;background:#101010;color:#aaa;font-size:10px}.cell.selected{background:#57151b;border-color:#ff4b53;color:white}.foot{text-align:center;color:#777;font-size:10px;padding:18px 0 6px}
+</style>
+</head>
+<body>
+<header><div class="eyebrow">TACTICAL COMPANION</div><h1>LAST GREEN <span>PRO</span></h1><div class="sub">EXTERNAL DASHBOARD • VERSÃO 1.0</div></header>
+<div class="status"><span><i class="dot"></i>Painel independente ativo</span><span>iOS • PWA</span></div>
+<nav>
+<button class="tab active" data-tab="home">PAINEL</button><button class="tab" data-tab="tools">FERRAMENTAS</button><button class="tab" data-tab="plan">ESTRATÉGIA</button>
+</nav>
+<main>
+<section id="home">
+<div class="card"><h2>VISÃO GERAL</h2><p class="hint">Organize sua partida e registre os dados manualmente. O painel não lê nem altera o jogo.</p><div class="statrow"><div class="stat"><small>Fase atual</small><b id="homeWave">1</b></div><div class="stat"><small>Defesas planejadas</small><b id="defCount">0</b></div></div>
+<div class="field"><label>Fase / onda atual</label><input id="wave" type="number" min="1" value="1"></div><button class="primary" id="saveWave">SALVAR PROGRESSO</button>
+</div>
+<div class="card"><h2>ATALHOS</h2><div class="grid2"><button class="secondary" onclick="showTab('tools')">Calculadora DPS</button><button class="secondary" onclick="showTab('plan')">Mapa de defesas</button></div></div>
+<div class="card"><h2>NOTAS DA PARTIDA</h2><textarea id="notes" rows="4" placeholder="Anote inimigos, pontos difíceis, upgrades e estratégias..."></textarea><button class="primary" id="saveNotes">SALVAR NOTAS</button></div>
+</section>
+<section id="tools" class="hidden">
+<div class="card"><h2>CALCULADORA DE DANO (DPS)</h2><p class="hint">Informe o dano por ataque e a quantidade de ataques por segundo.</p><div class="grid2"><div class="field"><label>Dano por ataque</label><input id="damage" type="number" min="0" step="any" value="100"></div><div class="field"><label>Ataques por segundo</label><input id="rate" type="number" min="0" step="any" value="1.5"></div></div><button class="primary" id="calcDps">CALCULAR DPS</button><div class="result" id="dpsResult">Dano por segundo<strong id="dpsValue">0</strong></div></div>
+<div class="card"><h2>CALCULADORA DE UPGRADE</h2><p class="hint">Compare o ganho estimado antes de gastar recursos.</p><div class="grid2"><div class="field"><label>Dano atual</label><input id="oldDmg" type="number" value="100"></div><div class="field"><label>Dano após upgrade</label><input id="newDmg" type="number" value="125"></div></div><div class="field"><label>Custo do upgrade</label><input id="cost" type="number" value="250"></div><button class="primary" id="calcUpgrade">COMPARAR UPGRADE</button><div class="result" id="upgradeResult">Aumento de dano<strong id="upgradeValue">0%</strong><div id="upgradeEfficiency"></div></div></div>
+</section>
+<section id="plan" class="hidden">
+<div class="card"><h2>PLANEJADOR DE POSICIONAMENTO</h2><p class="hint">Toque nos quadrados para marcar posições de defesa no seu planejamento. É um mapa ilustrativo, não uma leitura do tabuleiro do jogo.</p><div class="mapgrid" id="mapgrid"></div><div style="display:flex;gap:8px;margin-top:12px"><button class="secondary" id="clearMap" style="flex:1">LIMPAR MAPA</button><button class="secondary" id="saveMap" style="flex:1">SALVAR MAPA</button></div></div>
+<div class="card"><h2>ESTRATÉGIA POR ONDA</h2><div class="field"><label>Onda</label><input id="planWave" type="number" min="1" value="1"></div><div class="field"><label>Plano / observações</label><textarea id="planText" rows="4" placeholder="Ex.: priorizar dano em área; guardar recursos para a próxima onda..."></textarea></div><button class="primary" id="savePlan">SALVAR ESTRATÉGIA</button><div id="savedPlans" class="hint" style="margin-top:12px"></div></div>
+</section>
+</main>
+<div class="foot">LAST GREEN EXTERNAL PRO • Ferramenta independente e não afiliada ao jogo.</div>
+<script>
+const $=id=>document.getElementById(id);
+function showTab(name){document.querySelectorAll('main section').forEach(s=>s.classList.toggle('hidden',s.id!==name));document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+$('calcDps').onclick=()=>{let d=Number($('damage').value),r=Number($('rate').value);$('dpsValue').textContent=(d*r).toLocaleString('pt-BR',{maximumFractionDigits:2});$('dpsResult').style.display='block'};
+$('calcUpgrade').onclick=()=>{let a=Number($('oldDmg').value),b=Number($('newDmg').value),c=Number($('cost').value);let pct=a>0?(b/a-1)*100:0;$('upgradeValue').textContent=pct.toFixed(1).replace('.',',')+'%';$('upgradeEfficiency').textContent='Custo informado: '+c.toLocaleString('pt-BR');$('upgradeResult').style.display='block'};
+$('saveWave').onclick=()=>{localStorage.lgWave=$('wave').value;$('homeWave').textContent=$('wave').value;};
+$('saveNotes').onclick=()=>{localStorage.lgNotes=$('notes').value;alert('Notas salvas neste aparelho.')};
+$('wave').value=localStorage.lgWave||1;$('homeWave').textContent=$('wave').value;$('notes').value=localStorage.lgNotes||'';
+let selected=new Set(JSON.parse(localStorage.lgMap||'[]'));
+for(let i=0;i<25;i++){let b=document.createElement('button');b.className='cell'+(selected.has(i)?' selected':'');b.textContent=i+1;b.onclick=()=>{selected.has(i)?selected.delete(i):selected.add(i);b.classList.toggle('selected');$('defCount').textContent=selected.size};$('mapgrid').appendChild(b)}
+$('defCount').textContent=selected.size;
+$('clearMap').onclick=()=>{selected.clear();document.querySelectorAll('.cell').forEach(b=>b.classList.remove('selected'));$('defCount').textContent=0};
+$('saveMap').onclick=()=>{localStorage.lgMap=JSON.stringify([...selected]);alert('Mapa salvo neste aparelho.')};
+let plans=JSON.parse(localStorage.lgPlans||'{}');
+function renderPlans(){$('savedPlans').textContent=Object.keys(plans).length?'Estratégias salvas: '+Object.keys(plans).sort((a,b)=>a-b).join(', '):'Nenhuma estratégia salva ainda.'}
+$('savePlan').onclick=()=>{plans[$('planWave').value]=$('planText').value;localStorage.lgPlans=JSON.stringify(plans);renderPlans();alert('Estratégia salva neste aparelho.')};renderPlans();
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body></html>
